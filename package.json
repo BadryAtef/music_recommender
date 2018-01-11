@@ -1,0 +1,36 @@
+{
+  "name": "music_recommender",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node -e 'require(\"./server.js\")(function() {})'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BadryAtef/music_recommender.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BadryAtef/music_recommender/issues"
+  },
+  "homepage": "https://github.com/BadryAtef/music_recommender#readme",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.18.2",
+    "dotenv": "^4.0.0",
+    "ejs": "^2.5.7",
+    "email-templates": "^2.5.4",
+    "express": "^4.16.2",
+    "express-validator": "^2.20.10",
+    "fs-extra": "^5.0.0",
+    "jsonwebtoken": "^8.1.0",
+    "method-override": "^2.3.10",
+    "mysql": "^2.15.0",
+    "nodemailer": "^2.7.0",
+    "sequelize": "^3.30.2",
+    "validator": "^9.2.0"
+  }
+}
