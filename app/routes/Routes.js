@@ -38,6 +38,13 @@ module.exports = function(app) {
     *             *
     ***************/
     require('./resources/UserResource')(app);
+    
+    /**************
+    *             *
+    * Song routes *
+    *             *
+    ***************/
+    require('./resources/SongResource')(app);
     /*====================================================================================================================================*/
 
     /* any other request will be treated as not found (404) */

@@ -50,7 +50,7 @@ module.exports.defineUser = function(sequelize) {
         },
         spotify_id: {
             type: Sequelize.STRING,
-            allowNull: false
+            allowNull: true
         },
         reset_token: {
             type: Sequelize.STRING(700),
