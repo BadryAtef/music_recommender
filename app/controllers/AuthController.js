@@ -191,6 +191,9 @@ module.exports.login = function(req, res, next) {
 module.exports.logout = function (req, res, next){
     //delete the identity from the database
     req.identity.destroy().then(function(){
+        /* removing the identity from the request as it is deleted */
+        delete req.identity;
+        
         res.status(200).json({
             status:'succeeded'
         });
