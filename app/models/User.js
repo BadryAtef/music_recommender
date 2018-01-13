@@ -1,12 +1,12 @@
 /**
 *  @mixin User
-*  @property {String} first_name The users's first name
-*  @property {String} last_name The users's last name
-*  @property {Date} birthdate The users's birthdate
-*  @property {String} gender The users's gender ('Male', 'Female')
-*  @property {String} email The users's email
-*  @property {String} password The users's password
-*  @property {String} spotify_id The users's spotify_id
+*  @property {String} first_name The user's first name
+*  @property {String} last_name The user's last name
+*  @property {Date} birthdate The user's birthdate
+*  @property {String} gender The user's gender ('Male', 'Female')
+*  @property {String} email The user's email
+*  @property {String} password The user's password
+*  @property {String} spotify_id The user's spotify_id
 *  @property {String} reset_token The reset token of the user that could be used to reset the password
 */
 
@@ -50,7 +50,7 @@ module.exports.defineUser = function(sequelize) {
         },
         spotify_id: {
             type: Sequelize.STRING,
-            allowNull: false
+            allowNull: true
         },
         reset_token: {
             type: Sequelize.STRING(700),

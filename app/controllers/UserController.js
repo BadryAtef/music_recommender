@@ -50,9 +50,13 @@ module.exports.store = function(req, res, next) {
     req.sanitizeBody('gender').trim();
     
     /*Validate and sanitizing spotify id Input*/
-    req.checkBody('spotify_id', 'required').notEmpty();
-    req.checkBody('spotify_id', 'validity').isString();
-    req.sanitizeBody('spotify_id').trim();
+    if (req.body.spotify_id) {
+        req.checkBody('spotify_id', 'validity').isString();
+        req.sanitizeBody('spotify_id').trim();
+    }
+    else {
+        req.body.spotify_id = null;
+    }
     
     var errors = req.validationErrors();
     errors = format(errors);
