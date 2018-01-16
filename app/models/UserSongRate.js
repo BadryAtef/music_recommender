@@ -1,27 +1,39 @@
 /**
- *  @mixin UserSong
- *  @property {Float} pace the user's pace while listening to this song
+ *  @mixin UserSongRate
+ *  @property {Integer} pace the user's pace while listening to this song
  *  @property {Float} rating the given song rating by the user
  *  @property {Integer} counter the number of times the user listened to the song
- *  @property {Boolean} favorite boolean if this song is one of the favorite songs of the user
  */
 
 /**
- * This function defines the model UserSong
+ * This function defines the model UserSongRate
  *
  * @param  {Sequelize} sequelize this is the instance of Sequelize
  * @ignore
  */
-module.exports.defineUserSong = function(sequelize)
+module.exports.defineUserSongRate = function(sequelize)
 {
    var Sequelize = require("sequelize");
 
-   module.exports.UserSong = sequelize.define('user_song',
+   module.exports.UserSongRate = sequelize.define('user_song_rate',
       {
+         user_id:
+         {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            primaryKey: true
+         },
+         song_id:
+         {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            primaryKey: true
+         },
          pace:
          {
-            type: Sequelize.FLOAT,
-            allowNull: false
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            primaryKey: true
          },
          rating:
          {
@@ -31,11 +43,6 @@ module.exports.defineUserSong = function(sequelize)
          counter:
          {
             type: Sequelize.INTEGER,
-            allowNull: false
-         },
-         favorite:
-         {
-            type: Sequelize.BOOLEAN,
             allowNull: false
          }
       },
