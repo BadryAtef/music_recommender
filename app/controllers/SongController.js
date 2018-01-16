@@ -13,14 +13,12 @@ var format     = require('../Utilities').errorFormat;
 * @param  {Function} next Callback function that is called once done with handling the request
 */
 module.exports.indexFavorite = function(req, res, next) {
-    req.user.getSongs().then(function(songs){ // TODO filter with pivot table
+    req.user.getFavoriteSongs().then(function(songs) {
         
         var result = [];
 
         for(var i = 0; i < songs.length; i++){
             var song = songs[i];
-            
-            if (!song.user_song.favorite) continue;
             
             result.push({
                 name: song.name,

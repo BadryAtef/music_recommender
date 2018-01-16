@@ -25,7 +25,7 @@ module.exports.initialize = function(callback) {
    require('../../app/models/User').defineUser(sequelize);
    require('../../app/models/Identity').defineIdentity(sequelize);
    require('../../app/models/Song').defineSong(sequelize);
-   require('../../app/models/UserSong').defineUserSong(sequelize);
+   require('../../app/models/UserSongRate').defineUserSongRate(sequelize);
 
    /* defining relation */
    require('../../app/models/Relations');

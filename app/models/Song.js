@@ -49,7 +49,8 @@ module.exports.defineSong = function(sequelize) {
         },
         spotify_song_id: {
             type: Sequelize.STRING,
-            allowNull: false
+            allowNull: false,
+            unique: true
         }
     },
     {
