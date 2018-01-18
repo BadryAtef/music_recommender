@@ -67,7 +67,7 @@ module.exports.store = function(req, res, next) {
             errors: errors
         });
         
-        req.err = 'UserController.js, Line: 66\nSome validation errors occured.\n' + JSON.stringify(errors);
+        req.err = 'UserController.js, Line: 70\nSome validation errors occured.\n' + JSON.stringify(errors);
         
         next();
         
@@ -111,7 +111,7 @@ module.exports.store = function(req, res, next) {
                 error: errors
             });
             
-            req.err = 'UserController.js, Line: 110\nThe user violated some database constraints.\n' + JSON.stringify(errors);
+            req.err = 'UserController.js, Line: 114\nThe user violated some database constraints.\n' + JSON.stringify(errors);
         }
         else {
             /* failed to save the user in the database */
@@ -120,7 +120,7 @@ module.exports.store = function(req, res, next) {
                 message: 'Internal server error'
             });
             
-            req.err = 'UserController.js, Line: 119\nCouldn\'t save the user in the database.\n' + String(err);
+            req.err = 'UserController.js, Line: 123\nCouldn\'t save the user in the database.\n' + String(err);
         }
         
         next();

@@ -33,21 +33,21 @@
 			<li class="dropdown">
 				<a href="controllers.list.html" class="dropdown-toggle" data-toggle="dropdown">Controllers<b class="caret"></b></a>
 				<ul class="dropdown-menu inline">
-					<li><a href="controller-Auth%2520Controller.html">Auth Controller</a></li><li><a href="controller-User%2520Controller.html">User Controller</a></li>
+					<li><a href="controller-Auth%2520Controller.html">Auth Controller</a></li><li><a href="controller-Song%2520Controller.html">Song Controller</a></li><li><a href="controller-User%2520Controller.html">User Controller</a></li>
 				</ul>
 			</li>
 			
 			<li class="dropdown">
 				<a href="models.list.html" class="dropdown-toggle" data-toggle="dropdown">Models<b class="caret"></b></a>
 				<ul class="dropdown-menu inline">
-					<li><a href="Identity.html">Identity</a></li><li><a href="Log.html">Log</a></li><li><a href="User.html">User</a></li>
+					<li><a href="Identity.html">Identity</a></li><li><a href="Log.html">Log</a></li><li><a href="Song.html">Song</a></li><li><a href="User.html">User</a></li><li><a href="UserSongRate.html">UserSongRate</a></li>
 				</ul>
 			</li>
 			
 			<li class="dropdown">
 				<a href="routes.html" class="dropdown-toggle" data-toggle="dropdown">Routes<b class="caret"></b></a>
 				<ul class="dropdown-menu inline">
-					<li><a href="routes.html#/api/forgotPasswordPOST">/api/forgotPassword POST</a></li><li><a href="routes.html#/api/loginPOST">/api/login POST</a></li><li><a href="routes.html#/api/logoutGET">/api/logout GET</a></li><li><a href="routes.html#/api/resetPasswordPOST">/api/resetPassword POST</a></li><li><a href="routes.html#/api/userPOST">/api/user POST</a></li>
+					<li><a href="routes.html#/api/forgotPasswordPOST">/api/forgotPassword POST</a></li><li><a href="routes.html#/api/loginPOST">/api/login POST</a></li><li><a href="routes.html#/api/logoutGET">/api/logout GET</a></li><li><a href="routes.html#/api/resetPasswordPOST">/api/resetPassword POST</a></li><li><a href="routes.html#/api/songPOST">/api/song POST</a></li><li><a href="routes.html#/api/song/favoriteGET">/api/song/favorite GET</a></li><li><a href="routes.html#/api/userPOST">/api/user POST</a></li>
 				</ul>
 			</li>
 			
@@ -486,6 +486,186 @@
 	     type: the type of error that was caused [&#x27;required&#x27;, &#x27;validity&#x27;, &#x27;unique violation&#x27;]
 	  }, {...}, ...
 	]
+}</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id="/api/songPOST">
+    <h4 id="/api/songPOST"><span class="type-signature"></span>/api/song POST<span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        A POST route responsible for adding songs to the database.
+    </div>
+    
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+        <h5>Examples</h5>
+        
+    <pre class="sunlight-highlight-javascript">The route expects a body Object in the following format
+{
+      songs:
+          [
+              {
+                  name: String, [required]
+                  tempo: Float, [required]
+                  loudness: Float, [required]
+                  popularity: Integer, [required]
+                  album_genre: String, [required]
+                  spotify_album_id: String, [required]
+                  spotify_artist_id: String, [required]
+                  spotify_song_id: String [required]
+              }, {...}, ...
+          ]
+}</pre>
+
+    <pre class="sunlight-highlight-javascript">The route returns as a response an object in the following format
+[
+  {
+      status: succeeded/failed,
+      message: String showing a descriptive text,
+      error:
+      [
+          {
+              param: the field that caused the error,
+              value: the value that was provided for that field,
+              type: the type of error that was caused [&#x27;required&#x27;, &#x27;validity&#x27;]
+          }, {...}, ...
+      ]
+  }
+]</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id="/api/song/favoriteGET">
+    <h4 id="/api/song/favoriteGET"><span class="type-signature"></span>/api/song/favorite GET<span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        A GET route responsible for gitting the favorite songs of the logged in user.
+    </div>
+    
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">The route returns as a response an object in the following format
+{
+ status: succeeded/failed,
+ message: String showing a descriptive text,
+ songs:
+  [
+    {
+      name: String,
+      tempo: Float,
+      loudness: Float,
+      popularity: Integer,
+      album_genre: String,
+      spotify_album_id: String,
+      spotify_artist_id: String,
+      spotify_song_id: String
+    }, {...}, ...
+  ]
 }</pre>
 
 

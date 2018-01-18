@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Music Recommender Model: Log</title>
+	<title>Music Recommender Model: Song</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -79,13 +79,13 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Model: Log</h1>
+	<h1 class="page-title">Model: Song</h1>
 <section>
 
 <header>
     
         <h2>
-        Log
+        Song
         </h2>
         
     
@@ -127,7 +127,7 @@
 
         <tr>
             
-                <td class="name"><code>method</code></td>
+                <td class="name"><code>name</code></td>
             
 
             <td class="type">
@@ -144,20 +144,20 @@
 
             
 
-            <td class="description last">The HTTP method name</td>
+            <td class="description last">The song's name</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>route</code></td>
+                <td class="name"><code>tempo</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">Float</span>
 
 
 
@@ -168,14 +168,38 @@
 
             
 
-            <td class="description last">The route accessed</td>
+            <td class="description last">The song's tempo</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>response_time</code></td>
+                <td class="name"><code>loudness</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Float</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The song's loudness</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>popularity</code></td>
             
 
             <td class="type">
@@ -192,38 +216,14 @@
 
             
 
-            <td class="description last">The response time of the request in milliseconds</td>
+            <td class="description last">The song's popularity</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>status</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Integer</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The response HTTP status code</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>ip</code></td>
+                <td class="name"><code>album_genre</code></td>
             
 
             <td class="type">
@@ -240,14 +240,14 @@
 
             
 
-            <td class="description last">The ip address of the device requesting the route</td>
+            <td class="description last">The song's album_genre</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>error_message</code></td>
+                <td class="name"><code>spotify_album_id</code></td>
             
 
             <td class="type">
@@ -264,7 +264,55 @@
 
             
 
-            <td class="description last">The error message that is produced by the server</td>
+            <td class="description last">The song's spotify_album_id</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>spotify_artist_id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The song's spotify_artist_id</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>spotify_song_id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The song's spotify_song_id</td>
         </tr>
 
     

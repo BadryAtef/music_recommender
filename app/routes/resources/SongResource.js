@@ -30,4 +30,42 @@ module.exports = function(app) {
     * }
     */
     app.get('/api/song/favorite', auth, SongController.indexFavorite);
+    
+    /**
+    * A POST route responsible for adding songs to the database.
+    * @var /api/song POST
+    * @name /api/song POST
+    * @example The route expects a body Object in the following format
+    * {
+    *       songs:
+    *           [
+    *               {
+    *                   name: String, [required]
+    *                   tempo: Float, [required]
+    *                   loudness: Float, [required]
+    *                   popularity: Integer, [required]
+    *                   album_genre: String, [required]
+    *                   spotify_album_id: String, [required]
+    *                   spotify_artist_id: String, [required]
+    *                   spotify_song_id: String [required]
+    *               }, {...}, ...
+    *           ]
+    * }
+    * @example The route returns as a response an object in the following format
+    * [
+    *   {
+    *       status: succeeded/failed,
+    *       message: String showing a descriptive text,
+    *       error:
+    *       [
+    *           {
+    *               param: the field that caused the error,
+    *               value: the value that was provided for that field,
+    *               type: the type of error that was caused ['required', 'validity']
+    *           }, {...}, ...
+    *       ]
+    *   }
+    * ]
+    */
+    app.post('/api/song', auth, SongController.store);
 };

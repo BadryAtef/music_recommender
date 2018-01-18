@@ -33,7 +33,7 @@ public class FormatErrors {
 				while(in.ready()){
 					String line = in.readLine();
 
-					if(line.contains("req.err = "))
+					if(line.contains(".js, Line: "))
 						line = line.replaceAll("\\w+.js, Line: \\d+", file.getName() + ", Line: " + i);
 
 					sb.append(line + "\n");
@@ -49,5 +49,5 @@ public class FormatErrors {
 				out.close();
 			}
 		}
-	} 
+	}
 }
