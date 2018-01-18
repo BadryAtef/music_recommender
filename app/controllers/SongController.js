@@ -53,6 +53,211 @@ module.exports.indexFavorite = function(req, res, next) {
     });
 };
 
+/**
+* This function adding an existing song to the favorite list of  the logged in user.
+* @param  {HTTP}   req  The request object
+* @param  {HTTP}   res  The response object
+* @param  {Function} next Callback function that is called once done with handling the request
+*/
+module.exports.like = function (req, res, next){
+  /* Check the songID */
+  req.checkBody('songs', 'Songs array is required').notEmpty();
+  req.checkBody('songs', 'Enter a valid songs array').isArray();
+  var errors = req.validationErrors();
+    errors = format(errors);
+    if (errors) {
+        /* input validation failed */
+        res.status(400).json({
+            status: 'failed',
+            errors: errors
+        });
+        
+        req.err = 'SongController.js, Line: 75\nSome validation errors occured.\n' + JSON.stringify(errors);
+        
+        next();
+        
+        return;
+    }
+
+   module.exports.handleFavorite(req,true, function (response, serverErrors) {
+        res.status(200).json(response);
+        
+        req.err = JSON.stringify(serverErrors);
+        
+        next();
+    });
+   
+}
+
+/**
+* This function remove some existing songs from the favorite list of  the logged in user.
+* @param  {HTTP}   req  The request object
+* @param  {HTTP}   res  The response object
+* @param  {Function} next Callback function that is called once done with handling the request
+*/
+module.exports.dislike = function (req, res, next){
+  /* Check the songID */
+  req.checkBody('songs', 'Songs array is required').notEmpty();
+  req.checkBody('songs', 'Enter a valid songs array').isArray();
+  var errors = req.validationErrors();
+    errors = format(errors);
+    if (errors) {
+        /* input validation failed */
+        res.status(400).json({
+            status: 'failed',
+            errors: errors
+        });
+        
+        req.err = 'SongController.js, Line: 75\nSome validation errors occured.\n' + JSON.stringify(errors);
+        
+        next();
+        
+        return;
+    }
+
+   module.exports.handleFavorite(req,false, function (response, serverErrors) {
+        res.status(200).json(response);
+        
+        req.err = JSON.stringify(serverErrors);
+        
+        next();
+    });
+   
+}
+
+/**
+* This function add or remove the songs from the favorite list of the logged in user.
+* @param  {HTTP}   req  The request object
+* @param  {bool}  state A boolean flag where true means add and false means remove.
+* @param  {Function} callback Callback function that is called once done with adding songs.
+*/
+module.exports.handleFavorite = function(req,state, callback) {
+    var songs=req.body.songs
+    var response = [];
+    var serverErrors = [];
+
+
+    var loop = function (i) {
+        var song = songs[i];
+        var errors = [];
+        
+        if(i === songs.length){
+            /* handling songs completed */
+            callback(response, serverErrors);
+            
+            return;
+        }
+        
+        /* validations over input */
+        /* Validating and sanitizing the song id */
+        if (!song.song_id || validator.isEmpty(song.song_id + '') || !validator.isNumeric(song.song_id + '') || (song.song_id + '').length > 10) {
+            errors.push({
+                param: 'songs[' + i + '].song_id',
+                value: song.song_id,
+                type: (!song.song_id)? 'required' : 'validity'
+            });
+        }
+        else {
+            song.song_id = validator.trim(song.song_id + '');
+            song.song_id = validator.toInt(song.song_id + '');
+        }
+        
+        
+        if (errors.length > 0) {
+            /* input validation failed */
+            response.push({
+                status: 'failed',
+                errors: errors
+            });
+            
+            loop(i + 1);
+            
+            return;
+        }
+        
+        /* the song passed the format validation and ready for insertion */
+
+        /* check that the song exists */
+        Song.findOne({
+        where: {
+            id: song.song_id
+        }
+    }).then(function(song) {
+        if (!song){
+            response.push({
+                status:'failed',
+                message: 'song Id dose not exists'
+            });
+            loop(i + 1);
+        }
+        else{
+            if (state){
+          req.user.addFavoriteSongs(song).then(function(created){
+            /* the song is added successfully to the favorait list */
+            response.push({
+                status:'succeeded'
+            });
+            
+            loop(i + 1);
+        }).catch(function(err){
+            /* failed to save the song in the database */
+            response.push({
+                status:'failed',
+                message: 'Internal server error'
+            });
+            
+            serverErrors.push('SongController.js, Line: 1\nfailed to save song to the database.\n' + JSON.stringify(err));
+            
+            loop(i + 1);
+        });
+    }else {
+        req.user.removeFavoriteSongs(song).then(function(){
+            /* the song is added successfully to the favorait list */
+            response.push({
+                status:'succeeded'
+            });
+            
+            loop(i + 1);
+        }).catch(function(err){
+            /* failed to save the song in the database */
+            response.push({
+                status:'failed',
+                message: 'Internal server error'
+            });
+            
+            serverErrors.push('SongController.js, Line: 3\nfailed to save song to the database.\n' + JSON.stringify(err));
+            
+            loop(i + 1);
+        });
+    }
+
+
+        }
+
+    }).catch(function(err){
+
+     response.push({
+                status:'failed',
+                message: 'Internal server error'
+            });
+            
+            serverErrors.push('SongController.js, Line: 2\nfailed to save song to the database.\n' + JSON.stringify(err));
+            
+            loop(i + 1);
+
+    });
+        
+        
+    };
+    
+    /* statrting the loop */
+    loop(0);
+
+
+}
+
+
+
 
 /**
 * This function adds the songs to the database.
@@ -274,3 +479,5 @@ module.exports.addSongs = function(songs, callback) {
     /* statrting the loop */
     loop(0);
 };
+
+

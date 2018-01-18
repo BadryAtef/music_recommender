@@ -68,4 +68,50 @@ module.exports = function(app) {
     * ]
     */
     app.post('/api/song', auth, SongController.store);
+
+    /**
+    * A Post route responsible for adding some existing songs to the favorite list of  the logged in user.
+    * @var /api/song/like POST
+    * @name /api/song/like POST
+    * @example the route expects the user agent as 'user_agent' in the request headers with one of the following values ['Web', 'IOS', 'Android']
+    * @example The route expects a body Object in the following format
+    * {
+    *    songs:
+    *       [
+    *           {
+    *               song_Id: the Id of the song
+    *           }, {...}, ...
+    *       ]
+    * }
+    * @example The route returns as a response an object in the following format
+    * {
+    *  status: succeeded/failed,
+    *  message: String showing a descriptive text
+    * }
+    */
+     app.post('/api/song/like', auth, SongController.like);
+
+/**
+    * A Post route responsible for removing some existing songs from the favorite list of the logged in user.
+    * @var /api/song/dislike POST
+    * @name /api/song/dislike POST
+    * @example the route expects the user agent as 'user_agent' in the request headers with one of the following values ['Web', 'IOS', 'Android']
+    * @example The route expects a body Object in the following format
+    * {
+    *    songs:
+    *       [
+    *           {
+    *               song_Id: the Id of the song
+    *           }, {...}, ...
+    *       ]
+    * }
+    * @example The route returns as a response an object in the following format
+    * {
+    *  status: succeeded/failed,
+    *  message: String showing a descriptive text
+    * }
+    */
+     app.post('/api/song/dislike', auth, SongController.dislike);
 };
+
+
