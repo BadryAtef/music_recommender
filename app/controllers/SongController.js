@@ -108,7 +108,7 @@ module.exports.dislike = function (req, res, next){
             errors: errors
         });
         
-        req.err = 'SongController.js, Line: 75\nSome validation errors occured.\n' + JSON.stringify(errors);
+        req.err = 'SongController.js, Line: 111\nSome validation errors occured.\n' + JSON.stringify(errors);
         
         next();
         
@@ -206,7 +206,7 @@ module.exports.handleFavorite = function(req,state, callback) {
                 message: 'Internal server error'
             });
             
-            serverErrors.push('SongController.js, Line: 1\nfailed to save song to the database.\n' + JSON.stringify(err));
+            serverErrors.push('SongController.js, Line: 209\nfailed to save song to the database.\n' + JSON.stringify(err));
             
             loop(i + 1);
         });
@@ -225,7 +225,7 @@ module.exports.handleFavorite = function(req,state, callback) {
                 message: 'Internal server error'
             });
             
-            serverErrors.push('SongController.js, Line: 3\nfailed to save song to the database.\n' + JSON.stringify(err));
+            serverErrors.push('SongController.js, Line: 228\nfailed to save song to the database.\n' + JSON.stringify(err));
             
             loop(i + 1);
         });
@@ -241,7 +241,7 @@ module.exports.handleFavorite = function(req,state, callback) {
                 message: 'Internal server error'
             });
             
-            serverErrors.push('SongController.js, Line: 2\nfailed to save song to the database.\n' + JSON.stringify(err));
+            serverErrors.push('SongController.js, Line: 244\nfailed to save song to the database.\n' + JSON.stringify(err));
             
             loop(i + 1);
 
@@ -279,7 +279,7 @@ module.exports.store = function (req, res, next) {
             errors: errors
         });
         
-        req.err = 'SongController.js, Line: 77\nSome validation errors occured.\n' + JSON.stringify(errors);
+        req.err = 'SongController.js, Line: 282\nSome validation errors occured.\n' + JSON.stringify(errors);
         
         next();
         
@@ -470,7 +470,7 @@ module.exports.addSongs = function(songs, callback) {
                 message: 'Internal server error'
             });
             
-            serverErrors.push('SongController.js, Line: 268\nfailed to save song to the database.\n' + JSON.stringify(err));
+            serverErrors.push('SongController.js, Line: 473\nfailed to save song to the database.\n' + JSON.stringify(err));
             
             loop(i + 1);
         });
