@@ -47,7 +47,7 @@
 			<li class="dropdown">
 				<a href="routes.html" class="dropdown-toggle" data-toggle="dropdown">Routes<b class="caret"></b></a>
 				<ul class="dropdown-menu inline">
-					<li><a href="routes.html#/api/forgotPasswordPOST">/api/forgotPassword POST</a></li><li><a href="routes.html#/api/loginPOST">/api/login POST</a></li><li><a href="routes.html#/api/logoutGET">/api/logout GET</a></li><li><a href="routes.html#/api/resetPasswordPOST">/api/resetPassword POST</a></li><li><a href="routes.html#/api/songPOST">/api/song POST</a></li><li><a href="routes.html#/api/song/favoriteGET">/api/song/favorite GET</a></li><li><a href="routes.html#/api/userPOST">/api/user POST</a></li>
+					<li><a href="routes.html#/api/forgotPasswordPOST">/api/forgotPassword POST</a></li><li><a href="routes.html#/api/loginPOST">/api/login POST</a></li><li><a href="routes.html#/api/logoutGET">/api/logout GET</a></li><li><a href="routes.html#/api/resetPasswordPOST">/api/resetPassword POST</a></li><li><a href="routes.html#/api/songPOST">/api/song POST</a></li><li><a href="routes.html#/api/song/dislikePOST">/api/song/dislike POST</a></li><li><a href="routes.html#/api/song/favoriteGET">/api/song/favorite GET</a></li><li><a href="routes.html#/api/song/likePOST">/api/song/like POST</a></li><li><a href="routes.html#/api/userPOST">/api/user POST</a></li>
 				</ul>
 			</li>
 			
@@ -592,6 +592,88 @@
         
             
 <hr>
+<dt class="name" id="/api/song/dislikePOST">
+    <h4 id="/api/song/dislikePOST"><span class="type-signature"></span>/api/song/dislike POST<span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        A Post route responsible for removing some existing songs from the favorite list of the logged in user.
+    </div>
+    
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+        <h5>Examples</h5>
+        
+    <pre class="sunlight-highlight-javascript">the route expects the user agent as &#x27;user_agent&#x27; in the request headers with one of the following values [&#x27;Web&#x27;, &#x27;IOS&#x27;, &#x27;Android&#x27;]</pre>
+
+    <pre class="sunlight-highlight-javascript">The route expects a body Object in the following format
+{
+   songs:
+      [
+          {
+              song_Id: the Id of the song
+          }, {...}, ...
+      ]
+}</pre>
+
+    <pre class="sunlight-highlight-javascript">The route returns as a response an object in the following format
+{
+ status: succeeded/failed,
+ message: String showing a descriptive text
+}</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
 <dt class="name" id="/api/song/favoriteGET">
     <h4 id="/api/song/favoriteGET"><span class="type-signature"></span>/api/song/favorite GET<span class="type-signature"></span></h4>
 
@@ -666,6 +748,88 @@
       spotify_song_id: String
     }, {...}, ...
   ]
+}</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id="/api/song/likePOST">
+    <h4 id="/api/song/likePOST"><span class="type-signature"></span>/api/song/like POST<span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        A Post route responsible for adding some existing songs to the favorite list of  the logged in user.
+    </div>
+    
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+        <h5>Examples</h5>
+        
+    <pre class="sunlight-highlight-javascript">the route expects the user agent as &#x27;user_agent&#x27; in the request headers with one of the following values [&#x27;Web&#x27;, &#x27;IOS&#x27;, &#x27;Android&#x27;]</pre>
+
+    <pre class="sunlight-highlight-javascript">The route expects a body Object in the following format
+{
+   songs:
+      [
+          {
+              song_Id: the Id of the song
+          }, {...}, ...
+      ]
+}</pre>
+
+    <pre class="sunlight-highlight-javascript">The route returns as a response an object in the following format
+{
+ status: succeeded/failed,
+ message: String showing a descriptive text
 }</pre>
 
 
