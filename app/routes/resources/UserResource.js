@@ -4,6 +4,7 @@
 */
 module.exports = function(app) {
     var UserController = require('../../controllers/UserController');
+    var auth           = require('../../middlewares/AuthMiddleware');
 
     /**
     * A POST route responsible for storing a given user in the database.
@@ -41,12 +42,12 @@ module.exports = function(app) {
     * @name /api/user/rate POST
     * @example The route expects a body Object in the following format
     * {
-    *         rates:
+    *         songs:
     *           [
     *               {
     *                   rate: Float, [required]
     *                   pace: Integer, [required]
-    *                   song_id: String [required]
+    *                   song_id: Integer [required]
     *                   }, {...}, ...
     *           ]
     * }
@@ -64,5 +65,5 @@ module.exports = function(app) {
     *  ]
     * }
     */
-    app.post('/api/user', UserController.rate);
+    app.post('/api/user/rate',auth, UserController.rate);
 };
