@@ -34,4 +34,35 @@ module.exports = function(app) {
     * }
     */
     app.post('/api/user', UserController.store);
+
+      /**
+    * A POST route that enable the user to rate some songs according to some pace level.
+    * @var /api/user/rate POST
+    * @name /api/user/rate POST
+    * @example The route expects a body Object in the following format
+    * {
+    *         rates:
+    *           [
+    *               {
+    *                   rate: Float, [required]
+    *                   pace: Integer, [required]
+    *                   song_id: String [required]
+    *                   }, {...}, ...
+    *           ]
+    * }
+    * @example The route returns as a response an object in the following format
+    * {
+    *  status: succeeded/failed,
+    *  message: String showing a descriptive text,
+    *  error:
+    *  [
+    *    {
+    *       param: the field that caused the error,
+    *       value: the value that was provided for that field,
+    *       type: the type of error that was caused ['required', 'validity', 'unique violation']
+    *    }, {...}, ...
+    *  ]
+    * }
+    */
+    app.post('/api/user', UserController.rate);
 };
