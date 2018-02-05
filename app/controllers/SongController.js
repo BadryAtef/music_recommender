@@ -22,6 +22,7 @@ module.exports.indexFavorite = function(req, res, next) {
             var song = songs[i];
             
             result.push({
+                id: song.id,
                 name: song.name,
                 tempo: song.tempo,
                 loudness: song.loudness,

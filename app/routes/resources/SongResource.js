@@ -17,6 +17,7 @@ module.exports = function(app) {
     *  songs:
     *   [
     *     {
+    *       id: Integer,
     *       name: String,
     *       tempo: Float,
     *       loudness: Float,
