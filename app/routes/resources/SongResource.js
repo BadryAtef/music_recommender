@@ -10,6 +10,7 @@ module.exports = function(app) {
     * A GET route responsible for gitting the favorite songs of the logged in user.
     * @var /api/song/favorite GET
     * @name /api/song/favorite GET
+    * @example the route expects the user agent as 'user_agent' in the request headers with one of the following values ['Web', 'IOS', 'Android']
     * @example The route returns as a response an object in the following format
     * {
     *  status: succeeded/failed,
@@ -113,6 +114,35 @@ module.exports = function(app) {
     * }
     */
      app.post('/api/song/dislike', auth, SongController.dislike);
+     
+     /**
+     * A GET route responsible for gitting songs recommendation for the logged in user.
+     * @var /api/song/recommend GET
+     * @name /api/song/recommend GET
+     * @example the route expects the user agent as 'user_agent' in the request headers with one of the following values ['Web', 'IOS', 'Android']
+     * @example The route returns as a response an object in the following format
+    * {
+    *  status: succeeded/failed,
+    *  message: String showing a descriptive text,
+    *  songs:
+    *   [
+    *     [
+    *       {
+    *           id: Integer,
+    *           name: String,
+    *           tempo: Float,
+    *           loudness: Float,
+    *           popularity: Integer,
+    *           album_genre: String,
+    *           spotify_album_id: String,
+    *           spotify_artist_id: String,
+    *           spotify_song_id: String
+    *       }, {...}, ...
+    *     ], [{...}], ... // array of songs for each pace level
+    *   ]
+    * }
+    */
+    app.get('/api/song/recommend', auth, SongController.indexRecommendation);
 };
 
 

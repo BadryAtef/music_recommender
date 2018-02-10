@@ -42,7 +42,7 @@ module.exports.indexFavorite = function(req, res, next) {
         next();
         
     }).catch(function(err){
-        /* failed to retrieve the committes from the database */
+        /* failed to retrieve the favorite songs from the database */
         res.status(500).json({
             status:'failed',
             message: 'Internal server error'
@@ -481,4 +481,89 @@ module.exports.addSongs = function(songs, callback) {
     loop(0);
 };
 
+/**
+* This function returns songs recommendation for the logged in user.
+* @param  {HTTP}   req  The request object
+* @param  {HTTP}   res  The response object
+* @param  {Function} next Callback function that is called once done with handling the request
+*/
+module.exports.indexRecommendation = function(req, res, next) {
+    var exec = require('child_process').exec;
+    exec('java -jar ./config/TensorFactorization/Recommend.jar ./config/data/models/' + process.env.MODEL_NAME + ' ' + req.user.id + ' ' + process.env.RECOMMENDATION_LIMIT, function (err, stdout, stderr) {
+        if (err) {
+            /* error while recommending songs */
+            res.status(500).json({
+                status:'failed',
+                message: 'Internal server error'
+            });
+            
+            req.err = 'SongController.js, Line: 50\nError while recommending songs.\n' + String(err);
+            
+            next();
+            
+            return;
+        }
+        
+        var ids = stdout.split(/\n/);
+        ids.pop();
+        for (var i = 0; i < ids.length; i++) {
+            ids[i] = ids[i].split(/\s/);
+            for (var j = 0; j < ids[i].length; j++) {
+                ids[i][j] = parseInt(ids[i][j]);
+            }
+        }
+        
+        var flat = Array.prototype.concat.apply([], ids);
 
+        Song.findAll({ where: { id : flat } }).then(function(songs) {
+            
+            var result = [];
+            for (var i = 0; i < process.env.PACE_LEVELS; i++) {
+                result.push([]);
+                for (var j = 0; j < ids[i].length; j++) {
+                    result[i].push(0);
+                }
+            }
+        
+            for(var i = 0; i < songs.length; i++) {
+                var song = songs[i];
+                
+                for (var j = 0; j < process.env.PACE_LEVELS; j++) {
+                    var idx = ids[j].indexOf(song.id);
+                    if(idx < 0) continue;
+                    
+                    result[j][idx] = {
+                        id: song.id,
+                        name: song.name,
+                        tempo: song.tempo,
+                        loudness: song.loudness,
+                        popularity: song.popularity,
+                        album_genre: song.album_genre,
+                        spotify_album_id: song.spotify_album_id,
+                        spotify_artist_id: song.spotify_artist_id,
+                        spotify_song_id: song.spotify_song_id
+                    };
+                }
+            }
+            
+            res.status(200).json({
+                status:'succeeded',
+                songs: result
+            });
+            
+            next();
+            
+        }).catch(function(err){
+            /* failed to retrieve the recommended songs from the database */
+            res.status(500).json({
+                status:'failed',
+                message: 'Internal server error'
+            });
+            
+            req.err = 'SongController.js, Line: 50\nCouldn\'t retreive the recommended songs from the database.\n' + String(err);
+            
+            next();
+        });
+    });
+    
+};
