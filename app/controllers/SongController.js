@@ -48,7 +48,7 @@ module.exports.indexFavorite = function(req, res, next) {
             message: 'Internal server error'
         });
         
-        req.err = 'SongController.js, Line: 50\nCouldn\'t retreive the favorite songs from the database.\n' + String(err);
+        req.err = 'SongController.js, Line: 51\nCouldn\'t retreive the favorite songs from the database.\n' + String(err);
         
         next();
     });
@@ -73,7 +73,7 @@ module.exports.like = function (req, res, next){
             errors: errors
         });
         
-        req.err = 'SongController.js, Line: 75\nSome validation errors occured.\n' + JSON.stringify(errors);
+        req.err = 'SongController.js, Line: 76\nSome validation errors occured.\n' + JSON.stringify(errors);
         
         next();
         
@@ -109,7 +109,7 @@ module.exports.dislike = function (req, res, next){
             errors: errors
         });
         
-        req.err = 'SongController.js, Line: 111\nSome validation errors occured.\n' + JSON.stringify(errors);
+        req.err = 'SongController.js, Line: 112\nSome validation errors occured.\n' + JSON.stringify(errors);
         
         next();
         
@@ -207,7 +207,7 @@ module.exports.handleFavorite = function(req,state, callback) {
                 message: 'Internal server error'
             });
             
-            serverErrors.push('SongController.js, Line: 209\nfailed to save song to the database.\n' + JSON.stringify(err));
+            serverErrors.push('SongController.js, Line: 210\nfailed to save song to the database.\n' + JSON.stringify(err));
             
             loop(i + 1);
         });
@@ -226,7 +226,7 @@ module.exports.handleFavorite = function(req,state, callback) {
                 message: 'Internal server error'
             });
             
-            serverErrors.push('SongController.js, Line: 228\nfailed to save song to the database.\n' + JSON.stringify(err));
+            serverErrors.push('SongController.js, Line: 229\nfailed to save song to the database.\n' + JSON.stringify(err));
             
             loop(i + 1);
         });
@@ -242,7 +242,7 @@ module.exports.handleFavorite = function(req,state, callback) {
                 message: 'Internal server error'
             });
             
-            serverErrors.push('SongController.js, Line: 244\nfailed to save song to the database.\n' + JSON.stringify(err));
+            serverErrors.push('SongController.js, Line: 245\nfailed to save song to the database.\n' + JSON.stringify(err));
             
             loop(i + 1);
 
@@ -280,7 +280,7 @@ module.exports.store = function (req, res, next) {
             errors: errors
         });
         
-        req.err = 'SongController.js, Line: 282\nSome validation errors occured.\n' + JSON.stringify(errors);
+        req.err = 'SongController.js, Line: 283\nSome validation errors occured.\n' + JSON.stringify(errors);
         
         next();
         
@@ -471,7 +471,7 @@ module.exports.addSongs = function(songs, callback) {
                 message: 'Internal server error'
             });
             
-            serverErrors.push('SongController.js, Line: 473\nfailed to save song to the database.\n' + JSON.stringify(err));
+            serverErrors.push('SongController.js, Line: 474\nfailed to save song to the database.\n' + JSON.stringify(err));
             
             loop(i + 1);
         });
@@ -497,7 +497,7 @@ module.exports.indexRecommendation = function(req, res, next) {
                 message: 'Internal server error'
             });
             
-            req.err = 'SongController.js, Line: 50\nError while recommending songs.\n' + String(err);
+            req.err = 'SongController.js, Line: 500\nError while recommending songs.\n' + String(err);
             
             next();
             
@@ -560,7 +560,7 @@ module.exports.indexRecommendation = function(req, res, next) {
                 message: 'Internal server error'
             });
             
-            req.err = 'SongController.js, Line: 50\nCouldn\'t retreive the recommended songs from the database.\n' + String(err);
+            req.err = 'SongController.js, Line: 563\nCouldn\'t retreive the recommended songs from the database.\n' + String(err);
             
             next();
         });

@@ -414,3 +414,15 @@ module.exports.resetPassword = function (req, res, next) {
         next();
     });
 };
+
+/**
+* This function indicates that the token is valid
+* @param  {HTTP}   req  The request object
+* @param  {HTTP}   res  The response object
+* @param  {Function} next Callback function that is called once done with handling the request
+*/
+module.exports.verifyToken = function (req, res, next) {
+    res.status(200).json({
+        status: 'succeeded'
+    });
+};

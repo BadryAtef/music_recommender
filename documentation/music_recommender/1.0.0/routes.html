@@ -47,7 +47,7 @@
 			<li class="dropdown">
 				<a href="routes.html" class="dropdown-toggle" data-toggle="dropdown">Routes<b class="caret"></b></a>
 				<ul class="dropdown-menu inline">
-					<li><a href="routes.html#/api/forgotPasswordPOST">/api/forgotPassword POST</a></li><li><a href="routes.html#/api/loginPOST">/api/login POST</a></li><li><a href="routes.html#/api/logoutGET">/api/logout GET</a></li><li><a href="routes.html#/api/resetPasswordPOST">/api/resetPassword POST</a></li><li><a href="routes.html#/api/songPOST">/api/song POST</a></li><li><a href="routes.html#/api/song/dislikePOST">/api/song/dislike POST</a></li><li><a href="routes.html#/api/song/favoriteGET">/api/song/favorite GET</a></li><li><a href="routes.html#/api/song/likePOST">/api/song/like POST</a></li><li><a href="routes.html#/api/userPOST">/api/user POST</a></li>
+					<li><a href="routes.html#/api/forgotPasswordPOST">/api/forgotPassword POST</a></li><li><a href="routes.html#/api/loginPOST">/api/login POST</a></li><li><a href="routes.html#/api/logoutGET">/api/logout GET</a></li><li><a href="routes.html#/api/resetPasswordPOST">/api/resetPassword POST</a></li><li><a href="routes.html#/api/songPOST">/api/song POST</a></li><li><a href="routes.html#/api/song/dislikePOST">/api/song/dislike POST</a></li><li><a href="routes.html#/api/song/favoriteGET">/api/song/favorite GET</a></li><li><a href="routes.html#/api/song/likePOST">/api/song/like POST</a></li><li><a href="routes.html#/api/song/recommendGET">/api/song/recommend GET</a></li><li><a href="routes.html#/api/userPOST">/api/user POST</a></li><li><a href="routes.html#/api/user/ratePOST">/api/user/rate POST</a></li><li><a href="routes.html#/api/verifyTokenGET">/api/verifyToken GET</a></li>
 				</ul>
 			</li>
 			
@@ -729,8 +729,10 @@
 
 
     
-        <h5>Example</h5>
+        <h5>Examples</h5>
         
+    <pre class="sunlight-highlight-javascript">the route expects the user agent as &#x27;user_agent&#x27; in the request headers with one of the following values [&#x27;Web&#x27;, &#x27;IOS&#x27;, &#x27;Android&#x27;]</pre>
+
     <pre class="sunlight-highlight-javascript">The route returns as a response an object in the following format
 {
  status: succeeded/failed,
@@ -738,6 +740,7 @@
  songs:
   [
     {
+      id: Integer,
       name: String,
       tempo: Float,
       loudness: Float,
@@ -839,6 +842,94 @@
         
             
 <hr>
+<dt class="name" id="/api/song/recommendGET">
+    <h4 id="/api/song/recommendGET"><span class="type-signature"></span>/api/song/recommend GET<span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        A GET route responsible for gitting songs recommendation for the logged in user.
+    </div>
+    
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+        <h5>Examples</h5>
+        
+    <pre class="sunlight-highlight-javascript">the route expects the user agent as &#x27;user_agent&#x27; in the request headers with one of the following values [&#x27;Web&#x27;, &#x27;IOS&#x27;, &#x27;Android&#x27;]</pre>
+
+    <pre class="sunlight-highlight-javascript">The route returns as a response an object in the following format
+{
+ status: succeeded/failed,
+ message: String showing a descriptive text,
+ songs:
+  [
+    [
+      {
+          id: Integer,
+          name: String,
+          tempo: Float,
+          loudness: Float,
+          popularity: Integer,
+          album_genre: String,
+          spotify_album_id: String,
+          spotify_artist_id: String,
+          spotify_song_id: String
+      }, {...}, ...
+    ], [{...}], ... // array of songs for each pace level
+  ]
+}</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
 <dt class="name" id="/api/userPOST">
     <h4 id="/api/userPOST"><span class="type-signature"></span>/api/user POST<span class="type-signature"></span></h4>
 
@@ -919,6 +1010,176 @@
       type: the type of error that was caused [&#x27;required&#x27;, &#x27;validity&#x27;, &#x27;unique violation&#x27;]
    }, {...}, ...
  ]
+}</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id="/api/user/ratePOST">
+    <h4 id="/api/user/ratePOST"><span class="type-signature"></span>/api/user/rate POST<span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        A POST route that enable the user to rate some songs according to some pace level.
+    </div>
+    
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+        <h5>Examples</h5>
+        
+    <pre class="sunlight-highlight-javascript">The route expects a body Object in the following format
+{
+        songs:
+          [
+              {
+                  rate: Float, [required]
+                  pace: Integer, [required]
+                  song_id: Integer [required]
+                  }, {...}, ...
+          ]
+}</pre>
+
+    <pre class="sunlight-highlight-javascript">The route returns as a response an object in the following format
+{
+ status: succeeded/failed,
+ message: String showing a descriptive text,
+ error:
+ [
+   {
+      param: the field that caused the error,
+      value: the value that was provided for that field,
+      type: the type of error that was caused [&#x27;required&#x27;, &#x27;validity&#x27;, &#x27;unique violation&#x27;]
+   }, {...}, ...
+ ]
+}</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id="/api/verifyTokenGET">
+    <h4 id="/api/verifyTokenGET"><span class="type-signature"></span>/api/verifyToken GET<span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        A GET route responsible for verifying a specific token
+    </div>
+    
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+        <h5>Examples</h5>
+        
+    <pre class="sunlight-highlight-javascript">the route expects the access token as &#x27;Authorization&#x27; and the user agent as &#x27;user_agent&#x27; in the request headers with one of the following values [&#x27;Web&#x27;, &#x27;IOS&#x27;, &#x27;Android&#x27;]</pre>
+
+    <pre class="sunlight-highlight-javascript">The route responds with an object having the following format
+{
+	status: succeeded/failed,
+	message: Descriptive text about the errors,
+	errors:
+	[
+	  {
+	     param: the field that caused the error,
+	     value: the value that was provided for that field,
+	     type: the type of error that was caused [&#x27;required&#x27;, &#x27;validity&#x27;, &#x27;unique violation&#x27;]
+	  }, {...}, ...
+	]
 }</pre>
 
 

@@ -47,7 +47,7 @@
 			<li class="dropdown">
 				<a href="routes.html" class="dropdown-toggle" data-toggle="dropdown">Routes<b class="caret"></b></a>
 				<ul class="dropdown-menu inline">
-					<li><a href="routes.html#/api/forgotPasswordPOST">/api/forgotPassword POST</a></li><li><a href="routes.html#/api/loginPOST">/api/login POST</a></li><li><a href="routes.html#/api/logoutGET">/api/logout GET</a></li><li><a href="routes.html#/api/resetPasswordPOST">/api/resetPassword POST</a></li><li><a href="routes.html#/api/songPOST">/api/song POST</a></li><li><a href="routes.html#/api/song/dislikePOST">/api/song/dislike POST</a></li><li><a href="routes.html#/api/song/favoriteGET">/api/song/favorite GET</a></li><li><a href="routes.html#/api/song/likePOST">/api/song/like POST</a></li><li><a href="routes.html#/api/userPOST">/api/user POST</a></li>
+					<li><a href="routes.html#/api/forgotPasswordPOST">/api/forgotPassword POST</a></li><li><a href="routes.html#/api/loginPOST">/api/login POST</a></li><li><a href="routes.html#/api/logoutGET">/api/logout GET</a></li><li><a href="routes.html#/api/resetPasswordPOST">/api/resetPassword POST</a></li><li><a href="routes.html#/api/songPOST">/api/song POST</a></li><li><a href="routes.html#/api/song/dislikePOST">/api/song/dislike POST</a></li><li><a href="routes.html#/api/song/favoriteGET">/api/song/favorite GET</a></li><li><a href="routes.html#/api/song/likePOST">/api/song/like POST</a></li><li><a href="routes.html#/api/song/recommendGET">/api/song/recommend GET</a></li><li><a href="routes.html#/api/userPOST">/api/user POST</a></li><li><a href="routes.html#/api/user/ratePOST">/api/user/rate POST</a></li><li><a href="routes.html#/api/verifyTokenGET">/api/verifyToken GET</a></li>
 				</ul>
 			</li>
 			
@@ -154,6 +154,334 @@
         <h3 class="subsection-title">Methods</h3>
 
         <dl>
+            
+<hr>
+<dt>
+    <h4 class="name" id=".handleRates"><span class="type-signature">&lt;static> </span>handleRates(req, callback)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This function rates songs from the songs array one by one.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>req</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">HTTP</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The request object</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Callback function that is called once done with ratting songs.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".rate"><span class="type-signature">&lt;static> </span>rate(req, res, next)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This function add rattings for a list of songs and thier pace.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>req</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">HTTP</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The request object</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>res</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">HTTP</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The response object</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>next</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Callback function that is called once done with handling the request</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
             
 <hr>
 <dt>

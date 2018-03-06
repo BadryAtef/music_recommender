@@ -106,4 +106,25 @@ module.exports = function(app) {
     * }
     */
     app.post('/api/resetPassword', reset, AuthController.resetPassword);
+    
+    /**
+    * A GET route responsible for verifying a specific token
+    * @var /api/verifyToken GET
+    * @name /api/verifyToken GET
+    * @example the route expects the access token as 'Authorization' and the user agent as 'user_agent' in the request headers with one of the following values ['Web', 'IOS', 'Android']
+    * @example The route responds with an object having the following format
+    * {
+    * 	status: succeeded/failed,
+    * 	message: Descriptive text about the errors,
+    * 	errors:
+    * 	[
+    * 	  {
+    * 	     param: the field that caused the error,
+    * 	     value: the value that was provided for that field,
+    * 	     type: the type of error that was caused ['required', 'validity', 'unique violation']
+    * 	  }, {...}, ...
+    * 	]
+    * }
+    */
+    app.get('/api/verifyToken', auth, AuthController.verifyToken);
 };
