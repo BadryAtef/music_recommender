@@ -302,7 +302,7 @@ module.exports.store = function(req, res, next) {
             
             res.status(400).json({
                 status:'failed',
-                error: errors
+                errors: errors
             });
             
             req.err = 'UserController.js, Line: 308\nThe user violated some database constraints.\n' + JSON.stringify(errors);

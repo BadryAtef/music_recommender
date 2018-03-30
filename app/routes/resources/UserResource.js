@@ -18,13 +18,13 @@ module.exports = function(app) {
     *    gender: String ['Male', 'Female'], [required]
     *    email: String, [required]
     * 	 password: String, containing the new password [required (length between 6-20 characters)]
-    *    spotify_id: String [required]
+    *    spotify_id: String [optional]
     * }
     * @example The route returns as a response an object in the following format
     * {
     *  status: succeeded/failed,
     *  message: String showing a descriptive text,
-    *  error:
+    *  errors:
     *  [
     *    {
     *       param: the field that caused the error,
