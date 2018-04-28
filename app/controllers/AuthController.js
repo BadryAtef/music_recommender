@@ -425,4 +425,6 @@ module.exports.verifyToken = function (req, res, next) {
     res.status(200).json({
         status: 'succeeded'
     });
+    
+    next();
 };

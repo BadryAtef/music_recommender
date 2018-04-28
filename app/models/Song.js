@@ -23,12 +23,20 @@ module.exports.defineSong = function(sequelize) {
             type: Sequelize.STRING,
             allowNull: false
         },
+        img: {
+            type: Sequelize.TEXT,
+            allowNull: true
+        },
         tempo: {
             type: Sequelize.FLOAT,
             allowNull: false
         },
         loudness: {
             type: Sequelize.FLOAT,
+            allowNull: false
+        },
+        duration: {
+            type: Sequelize.INTEGER,
             allowNull: false
         },
         popularity: {

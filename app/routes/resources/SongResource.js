@@ -78,12 +78,19 @@ module.exports = function(app) {
     * @example the route expects the user agent as 'user_agent' in the request headers with one of the following values ['Web', 'IOS', 'Android']
     * @example The route expects a body Object in the following format
     * {
-    *    songs:
-    *       [
-    *           {
-    *               song_Id: the Id of the song
-    *           }, {...}, ...
-    *       ]
+    *       songs:
+    *           [
+    *               {
+    *                   name: String, [required]
+    *                   tempo: Float, [required]
+    *                   loudness: Float, [required]
+    *                   popularity: Integer, [required]
+    *                   album_genre: String, [required]
+    *                   spotify_album_id: String, [required]
+    *                   spotify_artist_id: String, [required]
+    *                   spotify_song_id: String [required]
+    *               }, {...}, ...
+    *           ]
     * }
     * @example The route returns as a response an object in the following format
     * {
@@ -103,7 +110,7 @@ module.exports = function(app) {
     *    songs:
     *       [
     *           {
-    *               song_Id: the Id of the song
+    *               spotify_song_id: String [required]
     *           }, {...}, ...
     *       ]
     * }
