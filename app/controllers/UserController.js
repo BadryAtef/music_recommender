@@ -36,10 +36,13 @@ module.exports.rate = function(req, res, next) {
     }
 
     module.exports.handleRates(req, function (response, serverErrors) {
-        res.status(200).json(response);
-        
+        res.status(200).json({
+            status:'succeeded',
+            songs: response
+        });
+
         req.err = JSON.stringify(serverErrors);
-        
+
         next();
     });
 
@@ -62,7 +65,7 @@ module.exports.handleRates = function(req, callback) {
         if(i === songs.length){
             /* handling songs completed */
             callback(response, serverErrors);
-            
+
             return;
         }
 
@@ -81,7 +84,7 @@ module.exports.handleRates = function(req, callback) {
         }
 
         /* Validating and sanitizing the pace */
-        if (!song.pace || validator.isEmpty(song.pace + '') || !validator.isNumeric(song.pace + '') || (song.pace + '').length > 1) {
+        if (song.pace === undefined || validator.isEmpty(song.pace + '') || !validator.isNumeric(song.pace + '') || (song.pace + '').length > 1) {
             errors.push({
                 param: 'songs[' + i + '].pace',
                 value: song.pace,
@@ -94,7 +97,7 @@ module.exports.handleRates = function(req, callback) {
         }
 
         /* Validating and sanitizing the rate */
-        if (!song.rate || validator.isEmpty(song.rate + '') || !validator.isFloat(song.rate + '')) {
+        if (song.rate === undefined || validator.isEmpty(song.rate + '') || !validator.isFloat(song.rate + '')) {
             errors.push({
                 param: 'songs[' + i + '].rate',
                 value: song.rate,
@@ -112,9 +115,9 @@ module.exports.handleRates = function(req, callback) {
                 status: 'failed',
                 errors: errors
             });
-            
+
             loop(i + 1);
-            
+
             return;
         }
 
@@ -155,7 +158,7 @@ module.exports.handleRates = function(req, callback) {
                     response.push({
                         status:'succeeded'
                     });
-                    
+
                     loop(i + 1);
                 }).catch(function(err){
                     /* failed to save the song in the database */
@@ -164,7 +167,7 @@ module.exports.handleRates = function(req, callback) {
                         message: 'Internal server error'
                     });
                     serverErrors.push('UserController.js, Line: 166\nfailed to save rate to the database.\n' + JSON.stringify(err));
-                    
+
                     loop(i + 1);
                 });
 
@@ -174,10 +177,10 @@ module.exports.handleRates = function(req, callback) {
                         message: 'Internal server error'
                     });
                     serverErrors.push('UserController.js, Line: 176\nfailed to get userSongRate instance from the database.\n' + JSON.stringify(err));
-                    
+
                     loop(i + 1);
                 })
-                
+
             }
         }).catch(function(err){
 
@@ -185,11 +188,11 @@ module.exports.handleRates = function(req, callback) {
                        status:'failed',
                        message: 'Internal server error'
                    });
-                   
+
                    serverErrors.push('UserController.js, Line: 189\nfailed to get song from the database.\n' + JSON.stringify(err));
-                   
+
                    loop(i + 1);
-       
+
            });
 
 
@@ -207,42 +210,42 @@ module.exports.handleRates = function(req, callback) {
 * @param  {Function} next Callback function that is called once done with handling the request
 */
 module.exports.store = function(req, res, next) {
-    
+
     /*Validate and sanitizing email Input*/
     req.checkBody('email', 'required').notEmpty();
     req.checkBody('email', 'validity').isEmail();
     req.sanitizeBody('email').escape();
     req.sanitizeBody('email').trim();
     req.sanitizeBody('email').normalizeEmail({ lowercase: true });
-    
+
     /*Validate and sanitizing Password  Input*/
     req.checkBody('password', 'required').notEmpty();
     req.assert('password', 'validity').len(6, 20);
-    
+
     /*Validate and sanitizing first name Input*/
     req.checkBody('first_name', 'required').notEmpty();
     req.checkBody('first_name', 'validity').isString();
     req.sanitizeBody('first_name').escape();
     req.sanitizeBody('first_name').trim();
-    
+
     /*Validate and sanitizing last name Input*/
     req.checkBody('last_name', 'required').notEmpty();
     req.checkBody('last_name', 'validity').isString();
     req.sanitizeBody('last_name').escape();
     req.sanitizeBody('last_name').trim();
-    
+
     /*Validate and sanitizing birthdate Input*/
     req.checkBody('birthdate', 'required').notEmpty();
     req.checkBody('birthdate', 'validity').isString().isBirthdate();
     req.sanitizeBody('birthdate').escape();
     req.sanitizeBody('birthdate').trim();
-    
+
     /*Validate and sanitizing gender Input*/
     req.checkBody('gender', 'required').notEmpty();
     req.checkBody('gender', 'validity').isIn(['Male', 'Female']);
     req.sanitizeBody('gender').escape();
     req.sanitizeBody('gender').trim();
-    
+
     /*Validate and sanitizing spotify id Input*/
     if (req.body.spotify_id) {
         req.checkBody('spotify_id', 'validity').isString();
@@ -251,7 +254,7 @@ module.exports.store = function(req, res, next) {
     else {
         req.body.spotify_id = null;
     }
-    
+
     var errors = req.validationErrors();
     errors = format(errors);
     if (errors) {
@@ -260,14 +263,14 @@ module.exports.store = function(req, res, next) {
             status: 'failed',
             errors: errors
         });
-        
+
         req.err = 'UserController.js, Line: 264\nSome validation errors occured.\n' + JSON.stringify(errors);
-        
+
         next();
-        
+
         return;
     }
-    
+
     var obj = {
         first_name : req.body.first_name,
         last_name : req.body.last_name,
@@ -277,14 +280,14 @@ module.exports.store = function(req, res, next) {
         password : req.body.password,
         spotify_id : req.body.spotify_id
     };
-    
+
     User.create(obj).then(function(user) {
-        
+
         res.status(200).json({
             status: 'succeeded',
             message: 'user successfully added'
         });
-        
+
         next();
     }).catch(function(err) {
         if (err.message === 'Validation error') {
@@ -292,19 +295,19 @@ module.exports.store = function(req, res, next) {
             var errors = [];
             for (var i = 0; i < err.errors.length; i++) {
                 var curError = err.errors[i];
-                
+
                 errors.push({
                     param: curError.path,
                     value: curError.value,
                     type: curError.type
                 });
             }
-            
+
             res.status(400).json({
                 status:'failed',
                 errors: errors
             });
-            
+
             req.err = 'UserController.js, Line: 308\nThe user violated some database constraints.\n' + JSON.stringify(errors);
         }
         else {
@@ -313,10 +316,10 @@ module.exports.store = function(req, res, next) {
                 status:'failed',
                 message: 'Internal server error'
             });
-            
+
             req.err = 'UserController.js, Line: 317\nCouldn\'t save the user in the database.\n' + String(err);
         }
-        
+
         next();
     });
 };
