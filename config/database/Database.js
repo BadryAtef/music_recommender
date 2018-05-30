@@ -11,7 +11,7 @@ var sequelize = new Sequelize(db_name, process.env.DB_USER, process.env.DB_PASS,
 {
    host: process.env.DB_HOST,
    dialect: 'mysql',
-   port:    3306,
+   port:    process.env.DB_PORT,
    logging: (process.env.SQL_LOG === 'true')? console.log : false,
    define: {
       charset: 'utf8'

@@ -58,5 +58,4 @@ typings/
 .env
 
 # trained models
-./config/data/models
-
+config/data/
