@@ -5,7 +5,7 @@
 module.exports = function(app) {
     var SongController = require('../../controllers/SongController');
     var auth           = require('../../middlewares/AuthMiddleware');
-    
+
     /**
     * A GET route responsible for gitting the favorite songs of the logged in user.
     * @var /api/song/favorite GET
@@ -32,7 +32,7 @@ module.exports = function(app) {
     * }
     */
     app.get('/api/song/favorite', auth, SongController.indexFavorite);
-    
+
     /**
     * A POST route responsible for adding songs to the database.
     * @var /api/song POST
@@ -121,7 +121,7 @@ module.exports = function(app) {
     * }
     */
      app.post('/api/song/dislike', auth, SongController.dislike);
-     
+
      /**
      * A GET route responsible for gitting songs recommendation for the logged in user.
      * @var /api/song/recommend GET
@@ -151,5 +151,3 @@ module.exports = function(app) {
     */
     app.get('/api/song/recommend', auth, SongController.indexRecommendation);
 };
-
-

@@ -32,7 +32,8 @@ module.exports.indexFavorite = function(req, res, next) {
         album_genre: song.album_genre,
         spotify_album_id: song.spotify_album_id,
         spotify_artist_id: song.spotify_artist_id,
-        spotify_song_id: song.spotify_song_id
+        spotify_song_id: song.spotify_song_id,
+        favorite: true
       });
     }
 
@@ -123,7 +124,6 @@ module.exports.dislike = function (req, res, next){
   }
 
   module.exports.handleFavorite(req, false, function (response, serverErrors) {
-    console.log(response);
     res.status(200).json({
       status:'succeeded',
       songs: response
@@ -551,55 +551,72 @@ module.exports.indexRecommendation = function(req, res, next) {
     }
 
     var flat = Array.prototype.concat.apply([], ids);
-
-    Song.findAll({ where: { id : flat } }).then(function(songs) {
-
-      var result = [];
-      for (var i = 0; i < process.env.PACE_LEVELS; i++) {
-        result.push([]);
-        for (var j = 0; j < ids[i].length; j++) {
-          result[i].push(0);
-        }
+    req.user.getFavoriteSongs({ attributes: ['id'] }).then(function(favSongsRec) {
+      var favSongs = [];
+      for (var i = 0; i < favSongsRec.length; ++i) {
+        favSongs.push(favSongsRec[i].id);
       }
+      
+      Song.findAll({ where: { id : flat } }).then(function(songs) {
 
-      for(var i = 0; i < songs.length; i++) {
-        var song = songs[i];
-
-        for (var j = 0; j < process.env.PACE_LEVELS; j++) {
-          var idx = ids[j].indexOf(song.id);
-          if(idx < 0) continue;
-
-          result[j][idx] = {
-            id: song.id,
-            name: song.name,
-            img: song.img,
-            tempo: song.tempo,
-            loudness: song.loudness,
-            duration: song.duration,
-            popularity: song.popularity,
-            album_genre: song.album_genre,
-            spotify_album_id: song.spotify_album_id,
-            spotify_artist_id: song.spotify_artist_id,
-            spotify_song_id: song.spotify_song_id
-          };
+        var result = [];
+        for (var i = 0; i < process.env.PACE_LEVELS; i++) {
+          result.push([]);
+          for (var j = 0; j < ids[i].length; j++) {
+            result[i].push(0);
+          }
         }
-      }
 
-      res.status(200).json({
-        status:'succeeded',
-        songs: result
+        for(var i = 0; i < songs.length; i++) {
+          var song = songs[i];
+
+          for (var j = 0; j < process.env.PACE_LEVELS; j++) {
+            var idx = ids[j].indexOf(song.id);
+            if(idx < 0) continue;
+
+            result[j][idx] = {
+              id: song.id,
+              name: song.name,
+              img: song.img,
+              tempo: song.tempo,
+              loudness: song.loudness,
+              duration: song.duration,
+              popularity: song.popularity,
+              album_genre: song.album_genre,
+              spotify_album_id: song.spotify_album_id,
+              spotify_artist_id: song.spotify_artist_id,
+              spotify_song_id: song.spotify_song_id,
+              favorite: favSongs.indexOf(song.id) >= 0
+            };
+          }
+        }
+
+        res.status(200).json({
+          status:'succeeded',
+          songs: result
+        });
+
+        next();
+
+      }).catch(function(err){
+        /* failed to retrieve the recommended songs from the database */
+        res.status(500).json({
+          status:'failed',
+          message: 'Internal server error'
+        });
+
+        req.err = 'SongController.js, Line: 563\nCouldn\'t retreive the recommended songs from the database.\n' + String(err);
+
+        next();
       });
-
-      next();
-
     }).catch(function(err){
-      /* failed to retrieve the recommended songs from the database */
+      /* failed to retrieve the favorite songs from the database */
       res.status(500).json({
         status:'failed',
         message: 'Internal server error'
       });
 
-      req.err = 'SongController.js, Line: 563\nCouldn\'t retreive the recommended songs from the database.\n' + String(err);
+      req.err = 'SongController.js, Line: 563\nCouldn\'t retreive the favorite songs from the database.\n' + String(err);
 
       next();
     });
