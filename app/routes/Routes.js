@@ -8,9 +8,17 @@ var log = require('../middlewares/LogMiddleware');
 
 module.exports = function(app) {
 
+
+    /* Allowing Access with multiple proceeding slashs */
+    app.use(function(req, res, next) {
+        req.url = req.url.replace(new RegExp("^[/]+"), "/");
+
+        next();
+    });
+
     /* allowing cross origin requests */
     app.use(function(req, res, next) {
-        res.header('Access-Control-Allow-Origin', "http://localhost:8000");
+        res.header('Access-Control-Allow-Origin', "http://servicefactory.kl.dfki.de/musicrecommender/");
         res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
         res.header('Access-Control-Allow-Headers', 'Content-Type, User_Agent, Authorization');
 
@@ -38,7 +46,7 @@ module.exports = function(app) {
     *             *
     ***************/
     require('./resources/UserResource')(app);
-    
+
     /**************
     *             *
     * Song routes *
